@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+html {
+	box-sizing: border-box;
+	// font-size: 62.5%; // 1px = 10px, 10px/16px = 62.5%
+
+	// @media only screen and (max-width: $bp-large) {
+	// 	font-size: 50%;
+	// }
+}
+
+body {
+	width: 100%;
+	font-family: 'Calibri', serif !important;
+	font-weight: 400;
+	line-height: 1.6;
+	background-color: $color-grey-light-1;
+	// @include resp(lg) {
+	// 	font-size: 90%;
+	// }
+	padding: 0;
+}

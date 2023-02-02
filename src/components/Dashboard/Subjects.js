@@ -11,20 +11,37 @@ import {
 	serverTimestamp,
 } from 'firebase/firestore';
 import { BsTrash } from 'react-icons/bs';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 import { db } from '@/middleware/firebase';
 import { Header } from '@/components/UI';
 
 const Subjects = () => {
-	const [addSubject, setAddSubject] = useState('');
+	const animatedComponents = makeAnimated();
+	const sectionCollectionRef = collection(db, 'sections');
+	const collectionRef = collection(db, 'subjects');
+
+	// useState
+	const [subjects, setSubjects] = useState([]);
+	const [sections, setSections] = useState([]);
+	const [addSubject, setAddSubject] = useState({
+		name: '',
+		sections: [],
+	});
 	const [massage, setMassage] = useState({
 		status: '',
 		text: '',
 	});
-	const [subjects, setSubjects] = useState([]);
-	const collectionRef = collection(db, 'subjects');
 
 	useEffect(() => {
+		// Get All Sections
+		const getAllSections = async () => {
+			const data = await getDocs(sectionCollectionRef);
+			setSections(data.docs.map((doc) => ({ label: doc.data().name, value: doc.id })));
+		};
+		getAllSections();
+
 		// Get All Subjects
 		const getAllSubjects = async () => {
 			const q = query(collectionRef, orderBy('createdAt'));
@@ -34,21 +51,35 @@ const Subjects = () => {
 		getAllSubjects();
 	}, []);
 
+	// Handler Change
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setAddSubject({ ...addSubject, [name]: value });
+	};
+
+	const handleChangeSelected = (selectedOption) => {
+		setAddSubject({ ...addSubject, sections: selectedOption });
+	};
+
 	// functoins add new Material
-	const AddNewSection = async () => {
-		if (_.isEmpty(addSubject)) {
+	const AddNewSection = async (e) => {
+		e.preventDefault();
+
+		if (_.isEmpty(addSubject.name)) {
 			return setMassage({ status: 'error', text: 'يجب عليك ادخال فصل !!' });
 		}
 
 		try {
-			await addDoc(collectionRef, {
-				name: addSubject.trim(),
-				createdAt: serverTimestamp(),
-			});
+			// await addDoc(collectionRef, {
+			// 	name: addSubject.name.trim(),
+			// 	createdAt: serverTimestamp(),
+			// 	sections: addSubject.sections,
+			// });
 			setMassage({ status: 'success', text: 'تم اضافة فصل بنجاح' });
-			setSubjects([...subjects, { name: addSubject }]);
+			setSubjects([...subjects, { name: addSubject.name }]);
+
 			setTimeout(() => {
-				setAddSubject('');
+				setAddSubject({ name: '', subjects: [] });
 				setMassage('');
 			}, 2000);
 		} catch (err) {
@@ -83,26 +114,56 @@ const Subjects = () => {
 				<div className="card-body">
 					<div className="subjects-list mb-3">
 						<div className="card-title text-black mb-3">
-							<div className="row">
-								<div className="col-sm-10">
-									<label htmlFor="section"> اضافة المادة</label>
-									<input
-										type="text"
-										className="form-control"
-										placeholder="اضافة المادة"
-										value={addSubject}
-										onChange={(e) => setAddSubject(e.target.value)}
-									/>
-									{massage.status === 'error' && (
-										<span className="text-danger">{massage.text}</span>
-									)}
+							<form onSubmit={AddNewSection}>
+								<div className="row">
+									<div className="col-sm-5">
+										<label htmlFor="description">فصل الدراسي</label>
+										<div className="input-group">
+											{sections.length > 0 ? (
+												<Select
+													id="description"
+													name="description"
+													defaultValue="اختيار فصل الدراسي"
+													closeMenuOnSelect={true}
+													components={animatedComponents}
+													options={sections}
+													onChange={handleChangeSelected}
+													value={addSubject.sections}
+													isMulti
+												/>
+											) : (
+												<input
+													type="text"
+													className="form-control"
+													value="لايوجد فصل دراسي"
+													readOnly={true}
+													disabled
+												/>
+											)}
+										</div>
+									</div>
+
+									<div className="col-sm-5">
+										<label htmlFor="name"> اضافة المادة</label>
+										<input
+											type="text"
+											className="form-control"
+											placeholder="اضافة المادة"
+											id="name"
+											name="name"
+											value={addSubject.name}
+											onChange={handleChange}
+										/>
+										{massage.status === 'error' && (
+											<span className="text-danger">{massage.text}</span>
+										)}
+									</div>
+
+									<div className="col-sm-2 text-center py-4">
+										<button className="btn btn-primary">اضافة </button>
+									</div>
 								</div>
-								<div className="col-sm-2 text-center py-4">
-									<button className="btn btn-primary" onClick={AddNewSection}>
-										اضافة{' '}
-									</button>
-								</div>
-							</div>
+							</form>
 						</div>
 
 						{massage.status === 'success' && (

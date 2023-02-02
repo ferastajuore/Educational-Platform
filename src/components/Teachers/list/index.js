@@ -1,32 +1,37 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
+import moment from 'moment';
 
 import { db } from '@/middleware/firebase';
 import { Spinner, Table } from '@/components/UI';
 import { tablePropsInit } from './columns';
 // import { CardSub } from '@UI/Cards/index';
 
-const UsersTable = () => {
-	const [users, setUsers] = useState([]);
-	const usersCollectionRef = collection(db, 'users');
+const TeachersTable = () => {
+	const [teachers, setTeachers] = useState([]);
+	const collectionRef = collection(db, 'teachers');
 
 	useEffect(() => {
-		const getAllUsers = async () => {
-			const data = await getDocs(usersCollectionRef);
-			setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+		const getAllStudents = async () => {
+			const data = await getDocs(collectionRef);
+			setTeachers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};
-		getAllUsers();
+		getAllStudents();
 	}, []);
 
 	const dataArray =
-		users !== undefined &&
-		users.map((user, index) => ({
-			name: user.username,
-			phone: user.phone,
-			id: user ? user.id : index,
+		teachers !== undefined &&
+		teachers.map((data, index) => ({
+			name: data.fullName,
+			city: data.city,
+			createdAt: moment(data.createdAt.toDate().toISOString()).format('YYYY-MM-DD'),
+			email: data.email,
+			username: data.username,
+			phone: data.phone,
+			id: data ? data.id : index,
 		}));
 
-	return users ? (
+	return teachers ? (
 		<div className="card mb-5">
 			<Table dataTable={dataArray} tablePropsInit={tablePropsInit} />
 		</div>
@@ -35,4 +40,4 @@ const UsersTable = () => {
 	);
 };
 
-export default UsersTable;
+export default TeachersTable;

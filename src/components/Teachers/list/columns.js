@@ -11,7 +11,7 @@ import { useDisclosure } from '@chakra-ui/react';
 import { db } from '@/middleware/firebase';
 import { Modal } from '@/components/UI';
 
-import EditUser from '../EditUser';
+import EditTeacher from '../EditTeacher';
 
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
@@ -54,20 +54,20 @@ const CustomCellControle = ({ value }) => {
 						icon={<TbEdit fontSize="1.8em" color="#333" />}
 						onClick={() => handleModal(onOpen, value)}
 					>
-						تعديل المستخدم
+						تعديل المعلم
 					</MenuItem>
 					<MenuItem
 						icon={<MdDelete fontSize="1.8em" color="#333" />}
 						onClick={() => handleDelete(value)}
 					>
-						حدف المستخدم
+						حدف المعلم
 					</MenuItem>
 				</MenuList>
 			</Menu>
 
 			{getId && (
-				<Modal title="تعديل المستخدم" isOpen={isOpen} onClose={onClose}>
-					<EditUser getId={getId} />
+				<Modal title="تعديل المعلم" isOpen={isOpen} onClose={onClose}>
+					<EditTeacher getId={getId} />
 				</Modal>
 			)}
 		</>
@@ -79,21 +79,33 @@ export const tablePropsInit = {
 	columns: [
 		{
 			key: 'name',
-			title: 'اسم المستخدم',
+			title: 'اسم المعلم',
 			dataType: DataType.String,
 			style: { width: 200 },
 		},
 		{
 			key: 'city',
-			// title: 'المدينة',
+			title: 'المدينة',
 			dataType: DataType.String,
 			style: { width: 150 },
 		},
 		{
-			key: 'numOfOrders',
-			// title: 'عدد بلاغات',
-			dataType: DataType.Number,
+			key: 'createdAt',
+			title: 'تاريخ الاضافة',
+			dataType: DataType.String,
 			style: { width: 150 },
+		},
+		{
+			key: 'email',
+			title: 'البريد الالكتروني',
+			dataType: DataType.String,
+			style: { width: 200 },
+		},
+		{
+			key: 'username',
+			title: 'اسم المستخدم',
+			dataType: DataType.String,
+			style: { width: 200 },
 		},
 		{
 			key: 'phone',

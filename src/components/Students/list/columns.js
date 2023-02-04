@@ -12,6 +12,8 @@ import { db } from '@/middleware/firebase';
 import { Modal } from '@/components/UI';
 
 import EditStudent from '../EditStudent';
+import { FiEye } from 'react-icons/fi';
+import Link from 'next/link';
 
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
@@ -50,6 +52,11 @@ const CustomCellControle = ({ value }) => {
 					<CgMenuRound fontSize="1.8em" />
 				</MenuButton>
 				<MenuList>
+					<Link href={`/Students/${value}`}>
+						<MenuItem icon={<FiEye fontSize="1.8em" color="#333" />}>
+							عرض الطالب
+						</MenuItem>
+					</Link>
 					<MenuItem
 						icon={<TbEdit fontSize="1.8em" color="#333" />}
 						onClick={() => handleModal(onOpen, value)}

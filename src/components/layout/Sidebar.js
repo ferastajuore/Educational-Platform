@@ -53,8 +53,8 @@ const Sidebar = ({ collapsed, userData }) => {
 									</div>
 								</Link>
 							</li>
-							<li className={router.pathname == '/' ? 'active' : ''}>
-								<Link href="/">
+							<li className={router.pathname == '/Notices' ? 'active' : ''}>
+								<Link href="/Notices">
 									<div>
 										<BsNewspaper />
 										<span>اشعارات</span>

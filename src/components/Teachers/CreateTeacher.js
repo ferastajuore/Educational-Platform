@@ -148,14 +148,14 @@ const CreateTeacher = () => {
 
 				<div className="form-group mb-2">
 					<label htmlFor="description" className="form-label">
-						السنة الدراسية
+						الفصل الدراسي
 					</label>
 					<div className="input-group">
 						{sections.length > 0 ? (
 							<Select
 								id="sections"
 								name="sections"
-								defaultValue="اختيار سنة الدراسية"
+								defaultValue="اختيار الفصل الدراسي"
 								closeMenuOnSelect={false}
 								options={sections}
 								onChange={handleChangeSections}
@@ -165,7 +165,7 @@ const CreateTeacher = () => {
 							<input
 								type="text"
 								className="form-control"
-								value="لايوجد سنة الدراسية"
+								value="لايوجد الفصل الدراسي"
 								readOnly={true}
 								disabled
 							/>

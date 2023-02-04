@@ -64,6 +64,23 @@ const CreateStudent = () => {
 
 			<form onSubmit={handleSubmit}>
 				<div className="form-group mb-2">
+					<label htmlFor="studentName" className="form-label">
+						اسم الطالب
+					</label>
+					<div className="input-group">
+						<input
+							type="text"
+							className="form-control"
+							id="studentName"
+							name="studentName"
+							placeholder="ادخل اسم الطالب"
+							onChange={handleChange}
+							required
+						/>
+					</div>
+				</div>
+
+				<div className="form-group mb-2">
 					<label htmlFor="username" className="form-label">
 						اسم المستخدم
 					</label>
@@ -163,15 +180,15 @@ const CreateStudent = () => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="name" className="form-label">
+					<label htmlFor="parentName" className="form-label">
 						اسم ولي الامر
 					</label>
 					<div className="input-group">
 						<input
 							type="text"
 							className="form-control"
-							id="name"
-							name="name"
+							id="parentName"
+							name="parentName"
 							placeholder="ادخل اسم ولي الامر"
 							onChange={handleChange}
 							required

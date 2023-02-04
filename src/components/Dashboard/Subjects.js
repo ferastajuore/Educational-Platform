@@ -70,11 +70,11 @@ const Subjects = () => {
 		}
 
 		try {
-			// await addDoc(collectionRef, {
-			// 	name: addSubject.name.trim(),
-			// 	createdAt: serverTimestamp(),
-			// 	sections: addSubject.sections,
-			// });
+			await addDoc(collectionRef, {
+				name: addSubject.name.trim(),
+				createdAt: serverTimestamp(),
+				sections: addSubject.sections,
+			});
 			setMassage({ status: 'success', text: 'تم اضافة فصل بنجاح' });
 			setSubjects([...subjects, { name: addSubject.name }]);
 

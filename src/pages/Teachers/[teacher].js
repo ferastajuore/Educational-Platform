@@ -8,37 +8,32 @@ import { Spinner } from '@/components/UI';
 import { db } from '@/middleware/firebase';
 import { AdminLayout } from '@/components/layout';
 
-const ViewCompany = ({ activeModel, closeModel }) => {
+const ViewTeacher = () => {
 	const { query } = useRouter();
-	const [company, setCompany] = useState({});
+	const [teacher, setTeacher] = useState({});
+	const [show, setShow] = useState(false);
 
 	useEffect(() => {
-		if (query.company !== undefined) {
+		if (query.teacher !== undefined) {
 			// Get company by id
 			const getData = async () => {
-				const docRef = doc(db, 'companies', query.company);
+				const docRef = doc(db, 'teachers', query.teacher);
 				const docSnap = await getDoc(docRef);
 
-				setCompany(docSnap.data());
+				setTeacher(docSnap.data());
 			};
 			getData();
 		}
-	}, [query.company]);
+	}, [query.teacher]);
 
-	// Handler Change
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setCompany({ ...company, [name]: value });
-	};
-
-	return !_.isEmpty(company) ? (
+	return !_.isEmpty(teacher) ? (
 		<AdminLayout>
 			<div className="card">
 				<div className="card-body">
 					<div className="d-flex justify-content-center mb-2">
 						<Image
 							src="/assets/image/company.png"
-							alt={company.name}
+							alt={teacher.fullName}
 							width={200}
 							height={200}
 						/>
@@ -46,18 +41,14 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 					<div className="row">
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="name" className="form-label">
-									اسم الشركة
+								<label htmlFor="username" className="text-black form-label">
+									اسم المستخدم
 								</label>
 								<div className="input-group">
 									<input
 										type="text"
 										className="form-control"
-										id="name"
-										name="name"
-										placeholder="ادخل اسم"
-										value={company.name}
-										onChange={handleChange}
+										value={teacher.username}
 										required
 										disabled
 									/>
@@ -67,7 +58,51 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="email" className="form-label">
+								<label htmlFor="name" className="text-black form-label">
+									كلمة المرور
+								</label>
+								<div className="input-group">
+									<span
+										className="input-group-text"
+										id="basic-addon1"
+										style={{ cursor: 'pointer' }}
+										onClick={() => setShow(!show)}
+									>
+										عرض
+									</span>
+									<input
+										type={show ? 'text' : 'password'}
+										className="form-control"
+										value={teacher.password}
+										required
+										disabled
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-sm-6">
+							<div className="form-group mb-2">
+								<label htmlFor="name" className="text-black form-label">
+									اسم المعلم
+								</label>
+								<div className="input-group">
+									<input
+										type="text"
+										className="form-control"
+										id="name"
+										name="name"
+										value={teacher.fullName}
+										required
+										disabled
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-sm-6">
+							<div className="form-group mb-2">
+								<label htmlFor="email" className="text-black form-label">
 									البريد الالكتروني
 								</label>
 								<div className="input-group">
@@ -77,8 +112,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 										id="email"
 										name="email"
 										placeholder="ادخل البريد الالكتروني"
-										value={company.email}
-										onChange={handleChange}
+										value={teacher.email}
 										required
 										disabled
 									/>
@@ -88,7 +122,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="phone" className="form-label">
+								<label htmlFor="phone" className="text-black form-label">
 									رقم الهاتف
 								</label>
 								<div className="input-group">
@@ -98,8 +132,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 										id="phone"
 										name="phone"
 										placeholder="ادخل رقم الهاتف"
-										value={company.phone}
-										onChange={handleChange}
+										value={teacher.phone}
 										required
 										disabled
 									/>
@@ -109,7 +142,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="city" className="form-label">
+								<label htmlFor="city" className="text-black form-label">
 									المدينة
 								</label>
 								<div className="input-group">
@@ -119,8 +152,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 										id="city"
 										name="city"
 										placeholder="ادخل المدينة"
-										value={company.city}
-										onChange={handleChange}
+										value={teacher.city}
 										required
 										disabled
 									/>
@@ -130,12 +162,32 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="description" className="form-label">
-									اقسام الشركة
+								<label htmlFor="subject" className="text-black form-label">
+									اسم المادة
+								</label>
+								<div className="input-group">
+									<input
+										type="text"
+										className="form-control"
+										id="subject"
+										name="subject"
+										placeholder="ادخل المدينة"
+										value={teacher.subject}
+										required
+										disabled
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-sm-12">
+							<div className="form-group mb-2">
+								<label htmlFor="section" className="text-black form-label">
+									الفصول الدراسية
 								</label>
 
 								<ul className="list-group">
-									{company.description.map((data) => (
+									{teacher.section.map((data) => (
 										<li key={data.value} className="list-group-item">
 											{data.label}
 										</li>
@@ -152,4 +204,4 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 	);
 };
 
-export default ViewCompany;
+export default ViewTeacher;

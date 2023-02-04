@@ -26,7 +26,7 @@ const StudentsTable = () => {
 			city: data.city,
 			createdAt: moment(data.createdAt.toDate().toISOString()).format('YYYY-MM-DD'),
 			age: data.age,
-			name: data.name,
+			name: data.parentName,
 			phone: data.phone,
 			id: data ? data.id : index,
 		}));

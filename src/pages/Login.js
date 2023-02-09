@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 import { db } from '@/middleware/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import Image from 'next/image';
 
 const Login = () => {
 	const router = useRouter();
@@ -22,6 +23,13 @@ const Login = () => {
 	});
 
 	useEffect(() => {
+		const getAllUsers = async () => {
+			const data = await getDocs(usersCollectionRef);
+			// setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+			console.log(data.docs);
+		};
+		getAllUsers();
+
 		if (loggedIn.username === '') return;
 
 		const getData = async () => {
@@ -79,56 +87,74 @@ const Login = () => {
 			className="d-flex justify-content-center align-items-center"
 			style={{ height: '100vh' }}
 		>
-			<div className="card text-bg-light" style={{ width: '40%' }}>
-				<div className="card-header text-center p-3 h5">تسجيل الدخول</div>
+			<div className="card text-bg-light" style={{ width: '60%' }}>
+				<div className="row">
+					<div className="text-center py-5 h3 fw-bold text-success">
+						Educational Platform
+					</div>
+					<div className="col-md-6">
+						<div className="card-body py-5 px-3">
+							{(massage.status === 'success' && (
+								<div className="alert alert-success text-center">
+									{massage.text}
+								</div>
+							)) ||
+								(massage.status === 'error' && (
+									<div className="alert alert-danger text-center">
+										{massage.text}
+									</div>
+								))}
 
-				<div className="card-body">
-					{(massage.status === 'success' && (
-						<div className="alert alert-success text-center">{massage.text}</div>
-					)) ||
-						(massage.status === 'error' && (
-							<div className="alert alert-danger text-center">{massage.text}</div>
-						))}
+							<form onSubmit={handleSubmit}>
+								<div className="form-group mb-2">
+									<label htmlFor="username" className="form-label">
+										اسم المستخدم
+									</label>
+									<div className="input-group">
+										<input
+											type="text"
+											className="form-control"
+											id="username"
+											name="username"
+											placeholder="ادخل اسم المستخدم"
+											onChange={handleChange}
+											required
+										/>
+									</div>
+								</div>
 
-					<form onSubmit={handleSubmit}>
-						<div className="form-group mb-2">
-							<label htmlFor="username" className="form-label">
-								اسم المستخدم
-							</label>
-							<div className="input-group">
-								<input
-									type="text"
-									className="form-control"
-									id="username"
-									name="username"
-									placeholder="ادخل اسم المستخدم"
-									onChange={handleChange}
-									required
-								/>
-							</div>
+								<div className="form-group mb-2">
+									<label htmlFor="password" className="form-label">
+										كلمة المرور
+									</label>
+									<div className="input-group">
+										<input
+											type="password"
+											className="form-control"
+											id="password"
+											name="password"
+											placeholder="ادخل كلمةالمرور"
+											onChange={handleChange}
+											required
+										/>
+									</div>
+								</div>
+
+								<div className="d-grid gap-2 col-6 mx-auto">
+									<Button title="تسجيل الدخول" className="btn-success mt-2" />
+								</div>
+							</form>
 						</div>
-
-						<div className="form-group mb-2">
-							<label htmlFor="password" className="form-label">
-								كلمة المرور
-							</label>
-							<div className="input-group">
-								<input
-									type="password"
-									className="form-control"
-									id="password"
-									name="password"
-									placeholder="ادخل كلمةالمرور"
-									onChange={handleChange}
-									required
-								/>
-							</div>
-						</div>
-
-						<div className="d-grid gap-2 col-6 mx-auto">
-							<Button title="تسجيل الدخول" className="btn-info mt-2" />
-						</div>
-					</form>
+					</div>
+					<div className="col-md-6 px-5">
+						<Image
+							src="/assets/image/login.png"
+							width={350}
+							height={350}
+							className="float-end"
+							alt="school"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

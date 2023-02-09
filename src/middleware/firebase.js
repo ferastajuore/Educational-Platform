@@ -4,13 +4,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyD2Hqvv9B-MCoeRlS-SEB6CwAQBjuxzHqg',
-	authDomain: 'educational-platform-8dd63.firebaseapp.com',
-	projectId: 'educational-platform-8dd63',
-	storageBucket: 'educational-platform-8dd63.appspot.com',
-	messagingSenderId: '770927907053',
-	appId: '1:770927907053:web:6a184a7cb757581af87ce4',
-	measurementId: 'G-NLQ274WBTS',
+	apiKey: process.env.NEXT_PUBLIC_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_APP_ID,
+	measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
 // Initialize Firebase

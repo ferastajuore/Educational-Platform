@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { AiOutlineDashboard } from 'react-icons/ai';
-import { FiUsers } from 'react-icons/fi';
+import { RiDashboardFill } from 'react-icons/ri';
+import { FaUserCircle } from 'react-icons/fa';
 import { BsNewspaper } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import { FaChalkboardTeacher, FaUserGraduate } from 'react-icons/fa';
@@ -24,7 +24,7 @@ const Sidebar = ({ collapsed, userData }) => {
 							<li className={router.pathname == '/' ? 'active' : ''}>
 								<Link href="/">
 									<div>
-										<AiOutlineDashboard />
+										<RiDashboardFill />
 										<span>لوحة التحكم</span>
 									</div>
 								</Link>
@@ -32,7 +32,7 @@ const Sidebar = ({ collapsed, userData }) => {
 							<li className={router.pathname == '/Users' ? 'active' : ''}>
 								<Link href="/Users">
 									<div>
-										<FiUsers />
+										<FaUserCircle />
 										<span>المستخدمون</span>
 									</div>
 								</Link>

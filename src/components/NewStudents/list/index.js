@@ -13,7 +13,7 @@ const StudentsTable = () => {
 
 	useEffect(() => {
 		const getAllStudents = async () => {
-			const q = query(collectionRef, where('status', '==', true));
+			const q = query(collectionRef, where('status', '==', false));
 			const data = await getDocs(q);
 			setStudents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};

@@ -1,38 +1,51 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react';
 import { CgMenuRound } from 'react-icons/cg';
 import { TbEdit } from 'react-icons/tb';
 import { MdDelete } from 'react-icons/md';
 import { DataType, FilteringMode, PagingPosition, SortingMode } from 'ka-table/enums';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
 
 import { db } from '@/middleware/firebase';
-import { Modal } from '@/components/UI';
+import { Button, Modal } from '@/components/UI';
 
-import EditStudent from '../EditStudent';
-import { FiEye } from 'react-icons/fi';
-import Link from 'next/link';
-
-// Custom cell for controle column
-const CustomCellControle = ({ value }) => {
+const CustomCellStatus = ({ value }) => {
 	const router = useRouter();
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [students, setStudent] = useState({});
 
-	// useState
-	const [getId, setGetId] = useState('');
+	useEffect(() => {
+		// Get company by id
+		const getData = async () => {
+			const docRef = doc(db, 'students', value);
+			const docSnap = await getDoc(docRef);
 
-	// handle modal or update
-	const handleModal = (isAcitve, id) => {
-		setGetId(id);
-		onOpen(isAcitve);
+			setStudent(docSnap.data());
+		};
+		getData();
+	}, [value]);
+
+	// handler Acssecpt student element
+	const handleStatus = async (id) => {
+		try {
+			if (confirm('هل انت متاكد تريد قبول الطالب ؟')) {
+				const userDoc = doc(db, 'students', id);
+				await updateDoc(userDoc, { status: true });
+
+				setTimeout(() => {
+					router.reload();
+				}, 1000);
+			}
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	// handler Delete element
 	const handleDelete = async (id) => {
 		try {
-			if (confirm('هل انت متاكد تريد حدف الطالب ؟')) {
+			if (confirm('هل انت متاكد تريد رفض الطالب ؟')) {
 				const userDoc = doc(db, 'students', id);
 				await deleteDoc(userDoc);
 
@@ -46,38 +59,10 @@ const CustomCellControle = ({ value }) => {
 	};
 
 	return (
-		<>
-			<Menu>
-				<MenuButton>
-					<CgMenuRound fontSize="1.8em" />
-				</MenuButton>
-				<MenuList>
-					<Link href={`/Students/${value}`}>
-						<MenuItem icon={<FiEye fontSize="1.8em" color="#333" />}>
-							عرض الطالب
-						</MenuItem>
-					</Link>
-					<MenuItem
-						icon={<TbEdit fontSize="1.8em" color="#333" />}
-						onClick={() => handleModal(onOpen, value)}
-					>
-						تعديل الطالب
-					</MenuItem>
-					<MenuItem
-						icon={<MdDelete fontSize="1.8em" color="#333" />}
-						onClick={() => handleDelete(value)}
-					>
-						حدف الطالب
-					</MenuItem>
-				</MenuList>
-			</Menu>
-
-			{getId && (
-				<Modal title="تعديل الطالب" isOpen={isOpen} onClose={onClose}>
-					<EditStudent getId={getId} />
-				</Modal>
-			)}
-		</>
+		<div className="d-flex justify-content-around">
+			<Button title="قبول" className="btn-info" onClick={() => handleStatus(value)} />
+			<Button title="رفض" className="btn-danger" onClick={() => handleDelete(value)} />
+		</div>
 	);
 };
 
@@ -128,10 +113,11 @@ export const tablePropsInit = {
 		},
 		{
 			key: 'id',
+			title: 'حالة القبول',
+			dataType: DataType.String,
 			style: { width: 150, textAlign: 'center' },
 		},
 	],
-	filteringMode: FilteringMode.FilterRow,
 	paging: {
 		enabled: true,
 		pageIndex: 0,
@@ -147,12 +133,8 @@ export const tablePropsInit = {
 		cellText: {
 			content: (props) => {
 				switch (props.column.key) {
-					// case 'role':
-					// 	return <CustomCellRole {...props} />;
 					case 'id':
-						return <CustomCellControle {...props} />;
-					// case 'password':
-					// 	return <CustomCellPassword {...props} />;
+						return <CustomCellStatus {...props} />;
 				}
 			},
 		},

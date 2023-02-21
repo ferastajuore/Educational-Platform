@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { RiDashboardFill } from 'react-icons/ri';
-import { FaUserCircle } from 'react-icons/fa';
-import { BsNewspaper } from 'react-icons/bs';
+import { FaUserCircle, FaUserCog } from 'react-icons/fa';
+import { BsFillChatTextFill, BsNewspaper } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import { FaChalkboardTeacher, FaUserGraduate } from 'react-icons/fa';
 
@@ -45,6 +45,14 @@ const Sidebar = ({ collapsed, userData }) => {
 									</div>
 								</Link>
 							</li>
+							<li className={router.pathname == '/NewStudents' ? 'active' : ''}>
+								<Link href="/NewStudents">
+									<div>
+										<FaUserCog />
+										<span>الطلاب الجدد</span>
+									</div>
+								</Link>
+							</li>
 							<li className={router.pathname == '/Teachers' ? 'active' : ''}>
 								<Link href="/Teachers">
 									<div>
@@ -58,6 +66,14 @@ const Sidebar = ({ collapsed, userData }) => {
 									<div>
 										<BsNewspaper />
 										<span>اشعارات</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Services' ? 'active' : ''}>
+								<Link href="/Services">
+									<div>
+										<BsFillChatTextFill />
+										<span>مراسلة</span>
 									</div>
 								</Link>
 							</li>

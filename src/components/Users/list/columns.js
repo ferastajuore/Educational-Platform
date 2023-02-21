@@ -3,7 +3,7 @@ import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react';
 import { CgMenuRound } from 'react-icons/cg';
 import { TbEdit } from 'react-icons/tb';
 import { MdDelete } from 'react-icons/md';
-import { DataType, PagingPosition, SortingMode } from 'ka-table/enums';
+import { DataType, FilteringMode, PagingPosition, SortingMode } from 'ka-table/enums';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
@@ -83,18 +83,18 @@ export const tablePropsInit = {
 			dataType: DataType.String,
 			style: { width: 200 },
 		},
-		{
-			key: 'city',
-			// title: 'المدينة',
-			dataType: DataType.String,
-			style: { width: 150 },
-		},
-		{
-			key: 'numOfOrders',
-			// title: 'عدد بلاغات',
-			dataType: DataType.Number,
-			style: { width: 150 },
-		},
+		// {
+		// 	key: 'city',
+		// 	// title: 'المدينة',
+		// 	dataType: DataType.String,
+		// 	style: { width: 150 },
+		// },
+		// {
+		// 	key: 'numOfOrders',
+		// 	// title: 'عدد بلاغات',
+		// 	dataType: DataType.Number,
+		// 	style: { width: 150 },
+		// },
 		{
 			key: 'phone',
 			title: 'رقم الهاتف',
@@ -106,7 +106,6 @@ export const tablePropsInit = {
 			style: { width: 200, textAlign: 'center' },
 		},
 	],
-	// data: dataTable,
 	paging: {
 		enabled: true,
 		pageIndex: 0,

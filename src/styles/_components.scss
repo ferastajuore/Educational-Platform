@@ -77,7 +77,7 @@
 
 .header-admin {
 	height: 95px;
-	// padding: 10px 20px 15px;
+	padding: 10px 20px 15px;
 	display: flex;
 	margin: auto;
 	z-index: 10;
@@ -87,19 +87,20 @@
 	}
 
 	& .navbar-menu {
+		padding: 40px 0;
 		width: 100%;
 		display: flex;
 		align-content: center;
-		background-image: linear-gradient(to left bottom, $color-green-light, $color-green-dark);
+		background-color: #00a886;
 		box-shadow: $shadow-dark;
 		// overflow: hidden;
 		align-items: center;
 		justify-content: space-between;
-		// border-radius: 10px;
-		// -webkit-border-radius: 10px;
-		// -moz-border-radius: 10px;
-		// -ms-border-radius: 10px;
-		// -o-border-radius: 10px;
+		border-radius: 10px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		-ms-border-radius: 10px;
+		-o-border-radius: 10px;
 
 		@media screen and (max-width: $bp-small) {
 			display: flex;
@@ -174,7 +175,7 @@
 }
 
 .sidebar {
-	background-image: linear-gradient(to left bottom, $color-green-light, $color-green-dark);
+	background-color: #00a886;
 	width: 200px;
 	display: flex;
 	flex-direction: column;
@@ -401,4 +402,21 @@
 	.ka-tr {
 		text-align: center;
 	}
+
+	.ka-thead-cell,
+	.ka-cell {
+		text-align: center !important;
+	}
+
+	.ka-input {
+		border-radius: 8px;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		-ms-border-radius: 8px;
+		-o-border-radius: 8px;
+	}
+
+	// .ka-input:last-of-type {
+	// 	display: none;
+	// }
 }

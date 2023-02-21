@@ -169,25 +169,6 @@ const ViewStudent = () => {
 								</div>
 							</div>
 						</div>
-
-						<div className="col-sm-6">
-							<div className="form-group mb-2">
-								<label htmlFor="subject" className="text-black form-label">
-									اسم المادة
-								</label>
-								<div className="input-group">
-									<input
-										type="text"
-										className="form-control"
-										placeholder="ادخل المدينة"
-										value={student.subject}
-										required
-										disabled
-									/>
-								</div>
-							</div>
-						</div>
-
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
 								<label htmlFor="section" className="text-black form-label">
@@ -195,11 +176,7 @@ const ViewStudent = () => {
 								</label>
 
 								<ul className="list-group">
-									{student.section.map((data) => (
-										<li key={data.value} className="list-group-item">
-											{data.label}
-										</li>
-									))}
+									<li className="list-group-item">{student.section.label}</li>
 								</ul>
 							</div>
 						</div>

@@ -43,7 +43,11 @@ const CreateStudent = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await addDoc(studentCollectionRef, { ...addStudent, createdAt: serverTimestamp() });
+			await addDoc(studentCollectionRef, {
+				...addStudent,
+				createdAt: serverTimestamp(),
+				status: true,
+			});
 			setMassage({ status: 'success', text: 'تم اضافة طالب بنجاح' });
 
 			setTimeout(() => {

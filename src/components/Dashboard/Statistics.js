@@ -35,45 +35,53 @@ const Statistics = () => {
 	}, []);
 
 	return (
-		<div className="row mb-5">
+		<div className="statistics row my-5">
 			<div className="col-sm-6 col-lg-4">
-				<div className="card text-bg-primary ">
-					<div className="card-body px-3 d-flex justify-content-around align-items-center">
-						<div>
-							{/* <i className="fa fa-users fa-5x"></i> */}
+				<div className="card box-shadow-dark">
+					<div className="card-body">
+						<div
+							className="bg-blue p-2 rounded box-shadow-dark"
+							style={{ position: 'absolute', top: '-30px', left: 20 }}
+						>
 							<FaChalkboardTeacher fontSize="5em" />
 						</div>
-						<div className="text-center text-white">
-							<h4>المعلمين</h4>
-							<h4>{counts.teacher && counts.teacher}</h4>
+						<div className="text-center text-black" style={{ float: 'right' }}>
+							<h4 className="h5">المعلمين</h4>
+							<h4 className="h4">{counts.teacher && counts.teacher}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div className="col-sm-6 col-lg-4">
-				<div className="card text-bg-success ">
-					<div className="card-body px-3 d-flex justify-content-around align-items-center">
-						<div className="text-white">
+				<div className="card box-shadow-dark">
+					<div className="card-body">
+						<div
+							className="bg-pink p-2 rounded box-shadow-dark"
+							style={{ position: 'absolute', top: '-30px', left: 20 }}
+						>
 							<FaUserGraduate fontSize="5em" />
 						</div>
-						<div className="text-center text-white">
-							<h4>الطلاب</h4>
-							<h4>{counts.student && counts.student}</h4>
+						<div className="text-center text-black" style={{ float: 'right' }}>
+							<h4 className="h5">الطلاب</h4>
+							<h4 className="h4">{counts.student && counts.student}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div className="col-sm-6 col-lg-4">
-				<div className="card text-bg-warning ">
-					<div className="card-body px-3  d-flex justify-content-around align-items-center">
-						<div className="text-white">
+				<div className="card box-shadow-dark">
+					<div className="card-body">
+						<div
+							className="bg-green p-2 rounded box-shadow-dark"
+							style={{ position: 'absolute', top: '-30px', left: 20 }}
+						>
 							<BsNewspaper fontSize="5em" />
 						</div>
-						<div className="text-center text-white">
-							<h4>اختبار هدا الشهر</h4>
-							<h4>{counts.quiz & counts.quiz}</h4>
+						<div className="text-center text-black" style={{ float: 'right' }}>
+							<h4 className="h5">اختبار هدا الشهر</h4>
+							<h4 className="h4">{counts.quiz & counts.quiz}</h4>
 						</div>
 					</div>
 				</div>

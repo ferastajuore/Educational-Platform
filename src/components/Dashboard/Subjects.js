@@ -110,7 +110,7 @@ const Subjects = () => {
 	return (
 		<div className="managment-subjects">
 			<Header title="ادارة المواد الدراسية" className="text-start" textSize="h4" />
-			<div className="card">
+			<div className="card box-shadow-dark">
 				<div className="card-body">
 					<div className="subjects-list mb-3">
 						<div className="card-title text-black mb-3">

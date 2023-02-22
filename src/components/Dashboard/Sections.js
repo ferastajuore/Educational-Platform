@@ -56,40 +56,6 @@ const Sections = () => {
 		}
 	};
 
-	// fucntion update section
-	// const updateSection = async (id, data) => {
-	// 	// setFildActive(id);
-	// 	console.log(data);
-
-	// 	try {
-	// 		const updateReport = doc(db, 'sections', id);
-	// 		await updateDoc(updateReport, {
-	// 			name: data,
-	// 		});
-
-	// 		setTimeout(() => {
-	// 			setFildActive('');
-	// 			setMassage('');
-	// 		}, 2000);
-
-	// 		setSender(companyId);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// 	try {
-	// 		const updateData = doc(db, 'sections', id);
-	// 		await updateDoc(updateData, { name: updateData });
-	// 		setMassage({ status: 'success', text: 'تم تحديت فصل بنجاح' });
-
-	// 		setTimeout(() => {
-	// 			setFildActive('');
-	// 			setMassage('');
-	// 		}, 2000);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
-
 	// fucntion delete section
 	const deleteSection = async (id) => {
 		try {
@@ -113,7 +79,7 @@ const Sections = () => {
 	return (
 		<div className="managment-sections mb-5">
 			<Header title="ادارة الفصول الدراسية" className="text-start" textSize="h4" />
-			<div className="card">
+			<div className="card box-shadow-dark">
 				<div className="card-body">
 					<div className="sections-list mb-3">
 						<div className="card-title text-black mb-3">

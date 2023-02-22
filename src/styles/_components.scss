@@ -5,6 +5,7 @@
 	direction: rtl;
 	color: #fff;
 	display: flex;
+	background-color: $color-grey-light-1;
 
 	&-content {
 		width: 100%;
@@ -87,7 +88,6 @@
 	}
 
 	& .navbar-menu {
-		padding: 40px 0;
 		width: 100%;
 		display: flex;
 		align-content: center;
@@ -169,20 +169,23 @@
 
 		&__info:hover {
 			cursor: pointer;
-			background-color: $color-green-dark;
+			background-color: #00755c;
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
 		}
 	}
 }
 
 .sidebar {
-	background-color: #00a886;
+	background-color: #00755c;
+	margin: 8px 0;
 	width: 200px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	position: fixed;
-	height: calc(100vh - 0px);
+	height: calc(98vh - 0px);
 	z-index: 10;
 	overflow: hidden;
 	transition: all 1.5s ease;
@@ -190,6 +193,11 @@
 	-moz-transition: all 1.5s ease;
 	-ms-transition: all 1.5s ease;
 	-o-transition: all 1.5s ease;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-o-border-radius: 15px;
 
 	@media screen and (max-width: $bp-large) {
 		width: 180px;
@@ -396,6 +404,24 @@
 		overflow-y: scroll;
 		height: 250px;
 	}
+
+	.statistics {
+		.bg-blue {
+			background-color: rgb(20, 132, 160);
+		}
+
+		.bg-pink {
+			background-color: #8b20b3;
+		}
+
+		.bg-green {
+			background-color: #0c7688;
+		}
+	}
+}
+
+.box-shadow-dark {
+	box-shadow: $shadow-dark;
 }
 
 .ka-table {

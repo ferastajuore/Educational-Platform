@@ -26,7 +26,9 @@ const StudentsTable = () => {
 			username: data.username,
 			studentName: data.studentName,
 			city: data.city,
-			createdAt: moment(data.createdAt.toDate().toISOString()).format('YYYY-MM-DD'),
+			createdAt: data.createdAt
+				? moment(data.createdAt.toDate().toISOString()).format('YYYY-MM-DD')
+				: 0,
 			age: data.age,
 			name: data.parentName,
 			phone: data.phone,
